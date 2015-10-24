@@ -31,3 +31,19 @@ Please go [here](https://github.com/owenconti/livecodingtv-bot) to see the origi
 - Change this line: ```var say = require('say');``` to: ```var say = require('winsay');```
 
 - Run the bot
+
+# Command list
+
+- !op {@username} {#lvl} - Mod only - Gives the user a certain lvl.
+
+- !q {question} - all - Notifies the streamer that a question has been asked.
+
+- !rank - all - Prints out the users rank
+
+# Presences modules
+
+## opGreeting.js
+**Won't work correctly with core greeting.js! Move core greeting.js to another folder or delete it!**
+
+Gives a custom greeting to an opped user. 
+
