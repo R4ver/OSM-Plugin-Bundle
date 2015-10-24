@@ -12,14 +12,23 @@ var debug = process.argv[2] === 'debug' || false;
 var commandFiles = [];
 const startUpTime = new Date().getTime();
 
+//get the main modules file
+var cm = require("./modules/cm");
+
+//Gets the custom modules
+cm.getCustomModules(commandFiles);
+
 // Load all files in the commands directory into an array
 fs.readdir( './commands' , function( err, files ) {
 	if ( err ) {
 		Log.log( 'ERROR: ' + err );
 	}
 
+	console.log("--------------------------------");
+
 	files.forEach( function(fileName) {
 		if ( fileName.indexOf( '.js' ) >= 0 ) {
+			console.log("Succesfully loaded command: " + fileName );
 			commandFiles.push( require( './commands/' + fileName ) );
 		}
 	} );
@@ -34,6 +43,7 @@ function startBot() {
 	chat.listen( function( stanza ) {
 		// Skip the initial messages when starting the bot
 		const messageTime = new Date().getTime();
+
 		if ( messageTime - startUpTime < 5000 ) { // 5 seconds
 			Log.log('Skipping start up message');
 			return;
