@@ -6,7 +6,7 @@
 
 var say = require('winsay');
 var voice = 'Victoria';
-let regex = new RegExp( /^(\!|\/)q\s(.+)$$/ );
+let regex = new RegExp( /^(\!|\/)q\s(.+)$/ );
 
 module.exports = [{
     types: ['message'],
