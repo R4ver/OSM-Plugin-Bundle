@@ -27,7 +27,7 @@ node_modules
 # project ignores
 brain
 commands
-Client.js
+!Client.js
 !index.js
 Log.js
 package.json
