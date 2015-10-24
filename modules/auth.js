@@ -10,16 +10,11 @@ module.exports = {
      * @return {true|false}
      */
     isModerator: function(stanza) {
-        var op = brain.getItem("chatOPS") || {};
-        var opName = op[stanza];
-
-        if ( opName !== undefined ) {
-            if ( opName.opLvl === "MOD" ) {
-                return true;
-            } else {
-                console.log("Is not opped");
-                return false;
-            }
+        console.log("auth.js says: " + stanza);
+        if ( stanza === "moderator" ) {
+            return true;
+        } else {
+            return false;
         }
     },
 

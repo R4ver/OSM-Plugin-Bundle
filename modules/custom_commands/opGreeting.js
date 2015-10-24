@@ -17,7 +17,7 @@ module.exports = [{
         console.log("Greeting role is: " + stanza.fromUsername.role);
 
         //Check if the user is a Modretor / owner and give custom message
-        if ( auth.isModerator(stanza.fromUsername) ) {
+        if ( auth.isModerator(user.role) ) {
             console.log(user.role);
             chat.sendMessage(`Welcome @${user.username}, my lord!`);
             return null;

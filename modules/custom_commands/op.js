@@ -9,7 +9,9 @@ module.exports = [{
     regex: regex,
     action: function( chat, stanza ) {
 
-        if ( auth.isModerator(stanza.fromUsername) ) {
+        var user = chat.getUser( stanza.fromUsername );
+
+        if ( auth.isModerator(user.role) ) {
             var match = regex.exec( stanza.message );
             var newOpName = match[2];
             var newOpLvl = match[4];
