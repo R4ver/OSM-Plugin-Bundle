@@ -40,10 +40,13 @@ Please go [here](https://github.com/owenconti/livecodingtv-bot) to see the origi
 
 - !rank - all - Prints out the users rank
 
+- !schedule - all - Prints out the schedule (!UNDER DEVELOPMENT!)
+
+- !rg {genre} - all - Creates a pool for a specific genre.
+
 # Presences modules
 
 ## opGreeting.js
 **Won't work correctly with core greeting.js! Move core greeting.js to another folder or delete it!**
 
-Gives a custom greeting to an opped user. 
-
+Gives a custom greeting to an opped user.

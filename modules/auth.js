@@ -10,11 +10,8 @@ module.exports = {
      * @return {true|false}
      */
     isModerator: function(stanza) {
-        console.log("auth.js says: " + stanza);
         if ( stanza === "moderator" ) {
             return true;
-        } else {
-            return false;
         }
     },
 
@@ -30,9 +27,6 @@ module.exports = {
         if ( opName !== undefined ) {
             if ( stanza === opName.oppedUser ) {
                 return true;
-            } else {
-                console.log("Is not opped");
-                return false;
             }
         }
     }

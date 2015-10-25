@@ -40,7 +40,7 @@ module.exports = [{
             chat.sendMessage(`"${genreName}" pool count is now: ${genreCount}`);
         }
 
-        if ( genrePool[requestedGenre].genreCount === 5 ) {
+        if ( genrePool[requestedGenre].genreCount >= 5 ) {
             console.log("genre is greater than 5");
             say.speak("Victoria", "Requested genre: " + genrePool[requestedGenre].genreName);
 
