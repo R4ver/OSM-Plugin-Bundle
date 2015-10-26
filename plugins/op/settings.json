@@ -1,0 +1,30 @@
+{
+    "greetings": {
+        "streamer": "Welcome @{{username}}, my lord!",
+        "oppedUser": "Welcome {{opLvl}}, @{{opName}}.",
+        "existingViewer": "Welcome back @{{username}}, glad to have you back!",
+        "newViewer": "Welcome to my stream, @{{username}}! Hope you'll enjoy your stay!"
+    },
+
+    "opLevels": { 
+        "mod" : { 
+            "name": "Moderator", 
+            "weight": 100 
+        }, 
+
+        "vip" : { 
+            "name": "VIP", 
+            "weight": 80 
+        },
+        
+        "donator": {
+            "name": "Donator",
+            "weight": 20
+        },
+
+        "potato": {
+            "name": "Potato",
+            "weight": 0
+        }
+    }
+}

@@ -3,6 +3,7 @@
 
 let runtime = require("../../utils/Runtime");
 var say = require("winsay");
+var auth = require("../op/auth");
 let regex = new RegExp( /^(\!|\/)rg\s(.+)$/ );
 
 module.exports = [{
@@ -11,6 +12,12 @@ module.exports = [{
     action: function( chat, stanza ) {
 
         var user = chat.getUser( stanza.user.username );
+        var chatOPS = runtime.brain.get("chatOPS") || {};
+        var opName = chatOPS[user.username];
+
+        if ( ! auth.has(user.username, "donator") ) {
+            return false;
+        } 
 
         var match = regex.exec( stanza.message );
         var requestedGenre = match[2].toLowerCase();
@@ -47,10 +54,12 @@ module.exports = [{
 
         if ( genrePool[requestedGenre].genreCount >= 5 ) {
             console.log("genre is greater than 5");
+
             say.speak("Victoria", "Requested genre: " + genrePool[requestedGenre].genreName);
 
             //Reset the requested song count
             genrePool[requestedGenre].genreCount = 0;
+            runtime.brain.set("genrePool", genrePool);
         }
     }
 }]

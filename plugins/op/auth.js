@@ -1,6 +1,7 @@
 "use strict";
 
 var runtime = require("../../utils/Runtime");
+var settings = require("./settings");
 
 module.exports = {
     /**
@@ -9,13 +10,24 @@ module.exports = {
      * @return {true|false}
      */
     isOpped: function(stanza) {
-        var op = runtime.brain.get("chatOPS") || {};
-        var opName = op[stanza];
+        var OP = runtime.brain.get("chatOPS") || {};
+        var opName = OP[stanza];
 
         if ( opName !== undefined ) {
             if ( stanza === opName.oppedUser ) {
                 return true;
             }
+        }
+    },
+
+    has: function(stanza, lvl) {
+        var OP = runtime.brain.get("chatOPS") || {};
+        var userLvl = OP[stanza].opLvl.toLowerCase();
+        var userWeight = settings.opLevels[userLvl].weight;
+        var opWeight = settings.opLevels[lvl].weight;
+
+        if ( userWeight >= opWeight ) {
+            return true;
         }
     }
 }

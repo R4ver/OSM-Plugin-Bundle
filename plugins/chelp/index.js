@@ -17,7 +17,7 @@ Custom Commands:
 
 !rank - all - Prints out the users rank
 
-!schedule - all - Prints out the schedule (!UNDER DEVELOPMENT!)
+!schedule - all - Prints out the schedule (**Does not work ATM**)
 `;
 
         // Get our custom commands

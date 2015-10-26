@@ -5,50 +5,54 @@
  * Gets or sets the schedule for a stream
  */
 
-var brain = require('node-persist');
+var runtime = require("../../utils/Runtime");
 var auth = require("../op/auth");
 let getScheduleRegex = new RegExp( /^(\!|\/)schedule$/ );
-let addScheduleRegex = new RegExp( /^(!|\/)schedule\sadd\s(.+)\s(\w+)\s(\w+)$/ );
+let addScheduleRegex = new RegExp( /^(!|\/)schedule-add\s(.+)\s(\w+)\s(\w+)$/ );
 
 module.exports = [{
     types: ['message'],
     regex: getScheduleRegex,
     action: function( chat, stanza ) {
-        var schedule = brain.getItem("schdedule") || {};
-        var scheduleName = schedule[ stanza.fromUsername ];
+        var schedule = runtime.brain.get("schedule");
 
-        if ( scheduleName !== undefined ) {
-            chat.sendMessage("\nStream schedule: \n\n" + scheduleName.title + " at " + scheduleName.time + " on " + scheduleName.date);
+        console.log(schedule);
+
+        if ( schedule ) {
+            console.log(schedule[0]);
+
+            //chat.sendMessage("\nStream schedule: \n\n" + scheduleName.title + " at " + scheduleName.time + " on " + scheduleName.date);
         } else {
-            chat.sendMessage("\nStream schedule: \n\nNo schedule");
+            console.log("Went to the else statement");
+            //chat.sendMessage("\nStream schedule: \n\nNo schedule");
         }
     }
 }, {
     types: ['message'],
     regex: addScheduleRegex,
     action: function( chat, stanza ) {
-        var user = chat.getUser( stanza.fromUsername );
+        var user = chat.getUser( stanza.user.username );
 
-        if ( auth.isModerator(user.role) ) {
+        if ( user.isModerator() ) {
             var match = addScheduleRegex.exec( stanza.message );
             var newScheduleTitle = match[2];
             var newScheduleTime = match[3];
             var newScheduleDate = match[4];
 
             //Get the OPS
-            var schedule = brain.getItem("schdedule") || {};
-            var scheduleName = schedule[ stanza.fromUsername ];
+            var schedule = runtime.brain.get("schdedule") || {};
+            var scheduleName = schedule[ stanza.user.username ];
 
-            if ( schedule[newScheduleTitle] === undefined ) {
+            if ( schedule["schedule"] === undefined ) {
 
-                schedule[newScheduleTitle] = {
+                schedule["schedule"] = [{
                     id: Date.now(),
                     title: newScheduleTitle,
                     time: newScheduleTime,
                     date: newScheduleDate
-                }
+                }];
 
-                brain.setItem("schedule", schedule);
+                runtime.brain.set("schedule", schedule);
 
                 chat.sendMessage(`Added schedule: ${newScheduleTitle}`);
             } else {
