@@ -53,4 +53,4 @@ Gives a custom greeting to an opped user.
 
 ### License
 
-The OSM Plugin Bundle open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT)
+The OSM Plugin Bundle is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT)
