@@ -28,7 +28,7 @@ node_modules
 brain
 commands
 Client.js
-index.js
+/index.js
 Log.js
 package.json
 credentials.js
@@ -42,6 +42,7 @@ websocket.js
 
 utils/
 model/
+examples/
 
 # Users Environment Variables
 .lock-wscript
