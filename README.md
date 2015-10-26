@@ -12,23 +12,7 @@ Please go [here](https://github.com/owenconti/livecodingtv-bot) to see the origi
 
 - First of all you need to the original project from [here](https://github.com/owenconti/livecodingtv-bot) and install that.
 
-- Drag the "modules" folder into the project folder.
-
-- Copy the content of to_index.js
-
-- place that into the original project folder index.js file under the lines where stuff gets required. ( comparison [here](http://i.imgur.com/HWfMeh4.png))
-
-- Run the bot
-
-**Extra steps if you are on Windows**
-
-- Open a command prompt and navigate to the original project folder
-
-- Run ```npm install winsay``` and let that download
-
-- open the file inside the **commands** folder called **say.js**
- 
-- Change this line: ```var say = require('say');``` to: ```var say = require('winsay');```
+- Drag the content of the "plugins" folder into the plugins folder for the bot
 
 - Run the bot
 
