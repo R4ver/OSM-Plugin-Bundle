@@ -32,10 +32,8 @@ Please go [here](https://github.com/owenconti/livecodingtv-bot) to see the origi
 
 # Presences modules
 
-## opGreeting.js
-**Won't work correctly with core greeting.js! Move core greeting.js to another folder or delete it!**
-
-Gives a custom greeting to an opped user.
+## OP plugin
+If you are using the OP plugin, you should disable the core greeting.js
 
 ### License
 
