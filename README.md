@@ -14,6 +14,8 @@ Please go [here](https://github.com/owenconti/livecodingtv-bot) to see the origi
 
 - Drag the content of the "plugins" folder into the plugins folder for the bot
 
+- If the plugins folder doesn't exist, create it, and drag the plugins in.
+
 - Run the bot
 
 # Command list
