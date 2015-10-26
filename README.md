@@ -1,4 +1,4 @@
-# livecodingtv-bot-features
+# OSM Plugin Bundle
 
 # Important!
 
@@ -50,3 +50,7 @@ Please go [here](https://github.com/owenconti/livecodingtv-bot) to see the origi
 **Won't work correctly with core greeting.js! Move core greeting.js to another folder or delete it!**
 
 Gives a custom greeting to an opped user.
+
+### License
+
+The OSM Plugin Bundle open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT)

@@ -32,6 +32,16 @@ index.js
 Log.js
 package.json
 credentials.js
+Loader.js
+ChatBot.js
+settings.js
+websocket.js
+*.sublime-project
+*.sublime-workspace
+*.html
+
+utils/
+model/
 
 # Users Environment Variables
 .lock-wscript
