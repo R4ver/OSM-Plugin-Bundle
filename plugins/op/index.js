@@ -62,6 +62,7 @@ module.exports = [{
 }, {
     types: ['message'],
     regex: /^(\!|\/)rank$/,
+    help: 'Returns the OP level of the user',
     action: function( chat, stanza ) {
         var OP = runtime.brain.get("chatOPS") || {};
         var opName = OP[stanza.user.username];
