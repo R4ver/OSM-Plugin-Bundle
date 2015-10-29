@@ -53,13 +53,15 @@ module.exports = [{
         }
     }
 }, {
+    name: '!op {@username} {#Lvl}',
+    help: 'Ops an user to a specific level',
     types: ['message'],
     regex: regex,
     action: function( chat, stanza ) {
 
         var user = chat.getUser( stanza.user.username );
 
-        if ( user.isModerator() ) {
+        if ( user.isModerator() || auth.has(user.username, "mod") ) {
             var opLevels = settings.opLevels;
 
 
@@ -89,8 +91,6 @@ module.exports = [{
                 var existingOpName = match[2];
                 var newOpLvl = match[4];
 
-                var chatOPS = runtime.brain.get("chatOPS") || {};
-
                 chatOPS[existingOpName].opLvl = newOpLvl;
 
                 runtime.brain.set("chatOPS", chatOPS);
@@ -101,9 +101,10 @@ module.exports = [{
 
     }
 }, {
+    name: '!rank',
+    help: 'Gets the current op level of the user',
     types: ['message'],
     regex: /^(\!|\/)rank$/,
-    help: 'Returns the OP level of the user',
     action: function( chat, stanza ) {
         var OP = runtime.brain.get("chatOPS") || {};
         var opName = OP[stanza.user.username];
