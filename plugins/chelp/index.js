@@ -1,3 +1,7 @@
+/*
+ *Plugin deprecated since Bot version: x.x.x
+ */
+
 'use strict';
 
 const runtime = require('../../utils/Runtime');

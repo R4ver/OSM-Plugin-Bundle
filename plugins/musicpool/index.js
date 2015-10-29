@@ -7,6 +7,8 @@ var auth = require("../op/auth");
 let regex = new RegExp( /^(\!|\/)rg\s(.+)$/ );
 
 module.exports = [{
+    name: '!rg',
+    help: 'Starts or continues a pool of voted music genres.',
     types: ['message'],
     regex: regex,
     action: function( chat, stanza ) {

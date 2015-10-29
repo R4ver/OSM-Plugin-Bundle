@@ -8,7 +8,7 @@
 var runtime = require("../../utils/Runtime");
 var auth = require("../op/auth");
 let getScheduleRegex = new RegExp( /^(\!|\/)schedule$/ );
-let addScheduleRegex = new RegExp( /^(!|\/)schedule-add\s(.+)\s(\w+)\s(\w+)$/ );
+let addScheduleRegex = new RegExp( /^(!|\/)schedule-add\s(\w+)\s(\d+.+\d+)\s(\w+)$/ );
 
 module.exports = [{
     types: ['message'],
@@ -16,10 +16,17 @@ module.exports = [{
     action: function( chat, stanza ) {
         var schedule = runtime.brain.get("schedule");
 
-        console.log(schedule);
-
         if ( schedule ) {
-            console.log(schedule[0]);
+            for ( var key in schedule ) {
+                var item = schedule[key];
+
+                var listSchedule = `
+                    \n
+                    Stream Schedule:
+                    \n\n
+                    ${item.title} at ${item.time} on the ${item.date}
+                `;
+            }
 
             //chat.sendMessage("\nStream schedule: \n\n" + scheduleName.title + " at " + scheduleName.time + " on " + scheduleName.date);
         } else {
@@ -40,17 +47,15 @@ module.exports = [{
             var newScheduleDate = match[4];
 
             //Get the OPS
-            var schedule = runtime.brain.get("schdedule") || {};
-            var scheduleName = schedule[ stanza.user.username ];
+            var schedule = runtime.brain.get("schedule") || {};
 
-            if ( schedule["schedule"] === undefined ) {
-
-                schedule["schedule"] = [{
+            if ( schedule[newScheduleTitle] === undefined ) {
+                schedule[newScheduleTitle] = {
                     id: Date.now(),
                     title: newScheduleTitle,
                     time: newScheduleTime,
                     date: newScheduleDate
-                }];
+                }
 
                 runtime.brain.set("schedule", schedule);
 

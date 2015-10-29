@@ -43,6 +43,7 @@ websocket.js
 utils/
 model/
 examples/
+setup/
 
 # Users Environment Variables
 .lock-wscript
