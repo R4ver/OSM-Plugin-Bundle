@@ -3,7 +3,9 @@
 var runtime = require("../../utils/Runtime");
 var auth = require("./auth");
 var settings = require("./settings");
-let regex = new RegExp( /^(\!|\/)op\s\@((\w|\d)+)\s\#((\w|\d)+)$/ );
+
+let createOpRegex = new RegExp( /^(\!|\/)op\s\@((\w|\d)+)\s\#((\w|\d)+)$/ );
+let otherUserRank = new RegExp( /^(\!|\/)rank\s\@(\w+)$/ );
 
 module.exports = [{
     types: ['presence'],
@@ -56,30 +58,36 @@ module.exports = [{
     name: '!op {@username} {#Lvl}',
     help: 'Ops an user to a specific level',
     types: ['message'],
-    regex: regex,
+    regex: createOpRegex,
     action: function( chat, stanza ) {
 
+        //Get the user
         var user = chat.getUser( stanza.user.username );
 
+        //If the user is the streamer or has a lvl of mod they will
+        //be able to op a specific user from the chat 
         if ( user.isModerator() || auth.has(user.username, "mod") ) {
             var opLevels = settings.opLevels;
 
-
-            var match = regex.exec( stanza.message );
+            //Get the regex groups
+            var match = createOpRegex.exec( stanza.message );
             var newOpName = match[2];
             var newOpLvl = match[4].toLowerCase();
 
+            //Check if the op level specified is valid
             if ( !opLevels.hasOwnProperty(newOpLvl) ) {
                     chat.sendMessage(`Level: "${newOpLvl}" is not a valid level`);
                     return null;    
             }
-            //Get the OPS
+
+            //Get the chatOPS from the brain
             var chatOPS = runtime.brain.get("chatOPS") || {};
 
+            //Check if the opped user already exists, else create it
             if ( chatOPS[newOpName] === undefined ) {
                 chatOPS[newOpName] = {
                     id: Date.now(),
-                    oppedUser: newOpName,
+                    opName: newOpName,
                     opLvl: newOpLvl
                 }
 
@@ -87,6 +95,8 @@ module.exports = [{
 
                 chat.sendMessage(`Opped user: @${newOpName} to: ${newOpLvl}`);
             } else {
+
+                //If the opped user already exists change the op level.
                 var match = regex.exec( stanza.message );
                 var existingOpName = match[2];
                 var newOpLvl = match[4];
@@ -106,13 +116,39 @@ module.exports = [{
     types: ['message'],
     regex: /^(\!|\/)rank$/,
     action: function( chat, stanza ) {
+
+        //Get the chatOPS from the brain
         var OP = runtime.brain.get("chatOPS") || {};
         var opName = OP[stanza.user.username];
 
-        if ( opName !== undefined ) {
+        //Check if the opped user exists, print the rank, else the user is a viewer
+        if ( opName ) {
             chat.sendMessage(stanza.user.username + "\'s rank is " + opName.opLvl);
         } else {
             chat.sendMessage(stanza.user.username + "\'s rank is Viewer");
+        }
+    }
+}, {
+    name: '!rank {@username}',
+    help: 'Gets the current op level of a user',
+    types: ['message'],
+    regex: otherUserRank,
+    action: function( chat, stanza ) {
+        //Get the chatOPS from the brain
+        var OP = runtime.brain.get("chatOPS") || {};
+
+        //Get the regex group
+        var match = otherUserRank.exec( stanza.message );
+        var passedUserName = match[2];
+
+        //Set user to the user passed in by the regex group
+        var user = OP[passedUserName];
+
+        //Check if the user exists in the chat, else print "user not found"
+        if ( user ) {
+            chat.sendMessage(`@${user.opName}'s rank is ${user.opLvl}`);
+        } else {
+            chat.sendMessage(`@${passedUserName} was not found.`);
         }
     }
 }]

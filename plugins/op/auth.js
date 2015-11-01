@@ -20,6 +20,12 @@ module.exports = {
         }
     },
 
+    /**
+     * Check if the user has the required level passed in
+     * @param {user}
+     * @param {level required}
+     * @return {true|false}
+     */
     has: function(stanza, lvl) {
         var OP = runtime.brain.get("chatOPS") || {};
         var userLvl = OP[stanza].opLvl.toLowerCase();
